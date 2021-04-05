@@ -1,5 +1,4 @@
 import 'package:simple_git/simple_git.dart';
-import 'package:simple_process/simple_process.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -7,7 +6,7 @@ void main() {
     SimpleGit? git;
 
     setUp(() {
-      git = SimpleGit(SimpleProcessOptions(binary: 'git'));
+      git = SimpleGit(options: SimpleGitOptions(binary: 'git'));
     });
 
     test('First Test', () {

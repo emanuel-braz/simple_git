@@ -17,7 +17,7 @@ void main() async {
 }
 
 void runSync() {
-  var gitSync = SimpleGit(options);
+  var gitSync = SimpleGit(options: options);
 
   var result = gitSync.status();
   logger.stdout('[STATUS]: ${result.lines.first}\n');
@@ -49,7 +49,7 @@ void runSync() {
 }
 
 void runAsync() async {
-  var gitAsync = SimpleGitAsync(options);
+  var gitAsync = SimpleGitAsync(options: options);
 
   try {
     var result = await gitAsync.addAll(handlerFn: (result) {

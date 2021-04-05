@@ -1,3 +1,6 @@
+## 0.1.2
+- Expose models
+
 ## 0.1.1
 - Hotfixes
 

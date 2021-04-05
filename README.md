@@ -13,6 +13,7 @@ Add as dependency in pubspec.yaml
 ```yaml
   dependencies:
     simple_git: 0.1.1
+    simple_process: ^0.1.3
 ```
 
 ## System Dependencies

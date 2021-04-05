@@ -173,7 +173,7 @@ class AnsiProgress extends Progress {
   late Timer _timer;
 
   AnsiProgress(this.ansi, String message) : super(message) {
-    io.stdout.write('${message}...  '.padRight(40));
+    io.stdout.write('$message...  '.padRight(40));
 
     _timer = Timer.periodic(Duration(milliseconds: 80), (t) {
       _index++;
@@ -209,7 +209,7 @@ class AnsiProgress extends Progress {
     if (isFinal || cancelled) {
       char = '';
     }
-    io.stdout.write('${ansi.backspace}${char}');
+    io.stdout.write('${ansi.backspace}$char');
     if (isFinal || cancelled) {
       if (message != null) {
         io.stdout.write(message.isEmpty ? ' ' : message);

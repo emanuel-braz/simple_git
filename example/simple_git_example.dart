@@ -1,31 +1,26 @@
-import 'dart:io';
 import 'package:simple_git/simple_git.dart';
-import 'package:simple_git/src/extensions/process_result.ext.dart';
 import 'package:simple_git/src/utils/logger/logger.dart';
+import 'package:simple_process/simple_process.dart';
 
 var logger = LoggerUtil.verbose();
 
+// All fields are optionals
+var options = SimpleProcessOptions(
+  //showOutput: false, // this make all output be printed on terminal (default = false)
+  binary: 'git',
+);
+
 // To test this example you need to be in a git project directory
 void main() async {
-  // All fields are optionals
-  var options = SimpleGitOptions(
-    baseDir: Directory.current.path,
-    showOutput:
-        true, // this make all output be printed on terminal (default = false)
-    binary: 'git',
-    config: 'http.proxy=someproxy',
-    maxConcurrentProcesses: 6,
-    runInShell: true,
-  );
   // runSync();
   runAsync();
 }
 
 void runSync() {
-  var gitSync = SimpleGit(SimpleGitOptions());
+  var gitSync = SimpleGit(options);
 
   var result = gitSync.status();
-  logger.stdout('[STATUS]: ${result.lines.first}\n\n');
+  logger.stdout('[STATUS]: ${result.lines.first}\n');
 
   /// Only the second command will throw error exiting the app
   /// The second command occurs always after the first command finish (Sync)
@@ -34,51 +29,58 @@ void runSync() {
   // gitSync..add(file: '*FirstErrorSkiped*', skipOnError: true)..add(file: '*SecondErrorFired*');
 
   try {
-    ProcessResult result = gitSync.add(file: '##', skipOnError: true);
+    var result = gitSync.add(file: '##1', skipOnError: true, showOutput: true);
     if (result.exitCode != 0) {
       logger.stderr(
-          'First error supressed, with "skipOnError: true" - pid: ${result.stderr}');
+          'First error supressed, with "skipOnError: true" - message: ${result.resultMessage}');
     }
-    // The first command will throw error and wil be catched by Try/Catch
+
+    // The first command will not throw error and will not be catched by Try/Catch
     // the second command will not be executed
-    gitSync..add(file: '##')..add(file: '%%');
-  } on GitException catch (gitException) {
+    gitSync
+      ..add(file: '##2', skipOnError: true, showOutput: true)
+      ..add(file: '%%3', showOutput: true);
+  } on SimpleProcessResult catch (gitException) {
     logger.stderr(
-        'Second error (Try/Catch) with exit code: ${gitException.exitCode} - [Description] ${gitException.toString()}');
+        'Third error (Try/Catch) with exit code: ${gitException.exitCode} - [Description] ${gitException.toString()}');
   } catch (e) {
     logger.stderr('Platform error $e');
   }
 }
 
 void runAsync() async {
-  var gitAsync = SimpleGitAsync(SimpleGitOptions());
+  var gitAsync = SimpleGitAsync(options);
 
   try {
-    ProcessResult result = await gitAsync.addAll(handlerFn: (result) {
-      // ProcessResult result
+    var result = await gitAsync.addAll(handlerFn: (result) {
       // always fired! with error or not
     });
-    logger.stdout('command execute successfully, pid: ${result.pid}');
+    logger.stdout(
+        'command execute successfully, pid: ${result.processResult?.pid}');
+  } on SimpleProcessResult catch (e) {
+    logger.stderr('awaited error with exit code: ${e.exitCode}');
   } catch (e) {
-    logger.stderr(
-        'awaited error with exit code: ${(e as GitException).exitCode}');
+    logger.stderr('Generic error: $e');
   }
 
   // throw error and catch the error
   await gitAsync.add(file: '###').catchError((dynamicError) {
-    GitException error = dynamicError;
+    SimpleProcessResult error = dynamicError;
     logger.stderr(
-        'Current Exit code: ${error.exitCode} - [Description] ${error.stderr}');
+        'Current Exit code: ${error.exitCode} - [Description] ${error.resultMessage}');
     return error; // Need to return error, because null safety constrains
   });
+
   logger.stdout('awaited...');
 
   // Everything working together, not recommended in concurrently file access
   gitAsync
+    // ignore: unawaited_futures
     ..addAll(handlerFn: (result) {
       logger.stdout(
           'this can be finished or not, it depends if some error get fired before');
     })
+    // ignore: unawaited_futures
     ..add(
       file: '##',
       // skipOnError: true
@@ -86,6 +88,7 @@ void runAsync() async {
       logger.stdout('This code will never be executed');
       return value;
     }) // this will throw an error. If no catchError, it will stop all executions and exit the app
+    // ignore: unawaited_futures
     ..addAll(handlerFn: (result) {
       logger.stdout(
           'this can be finished or not, it depends if some error get fired before');

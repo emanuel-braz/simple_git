@@ -1,3 +1,5 @@
+[![Plugin](https://img.shields.io/badge/library-pub.dev-blue)](https://pub.dev/packages/simple_git) &nbsp; [![Example](https://img.shields.io/badge/example-ex-success)](https://pub.dev/packages/simple_git/example)
+
 # Simple Git
 
 A lightweight interface for running `git` commands in any [dart](https://dart.dev/) application.
@@ -8,7 +10,10 @@ A lightweight interface for running `git` commands in any [dart](https://dart.de
 ## Installation
 
 Add as dependency in pubspec.yaml
--   simple_git: 0.1.0
+```yaml
+  dependencies:
+    simple_git: 0.1.1
+```
 
 ## System Dependencies
 
@@ -21,7 +26,7 @@ Include into your dart app using:
 ```dart
 import 'package:simple_git/simple_git.dart';
 
-var simpleGit = SimpleGit(SimpleGitOptions());
+var simpleGit = SimpleGit(SimpleProcessOptions());
 ```
 
 ### Configuration
@@ -31,12 +36,12 @@ Configure each `simple_git` instance with a properties object passed to the `Sim
 ```dart
 import 'package:simple_git/simple_git.dart';
 
-var options = SimpleGitOptions();
+var options = SimpleProcessOptions();
 
 // or
 
 // All fields are optionals
-  var options = SimpleGitOptions(
+  var options = SimpleProcessOptions(
     baseDir: Directory.current.path, // working directory for `git` commands to run in
     showOutput: true, // this make all output be printed on terminal (default = false)
     binary: 'git',
@@ -54,7 +59,7 @@ To prefix the commands run by `simple_git` with custom configuration not saved i
 
 ```dart
 // configure the instance with a custom configuration property
-var options = SimpleGitOptions(
+var options = SimpleProcessOptions(
   config: 'http.proxy=someproxy'
 );
 

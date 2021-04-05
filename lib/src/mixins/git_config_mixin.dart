@@ -1,8 +1,8 @@
-import 'package:simple_git/simple_git.dart';
 import 'package:simple_git/src/interfaces/git_config_interface.dart';
 import 'package:simple_git/src/simple_git_base.dart';
+import 'package:simple_process/simple_process.dart';
 
-mixin GitConfigMixin<T> on SimpleGitBase<T> implements IGitConfig<T> {
+mixin GitConfigMixin<T> on GitBase<T> implements IGitConfig<T> {
   /// Git init
   @override
   T init(
@@ -10,7 +10,7 @@ mixin GitConfigMixin<T> on SimpleGitBase<T> implements IGitConfig<T> {
           bool skipOnError = false,
           HandlerFunction? handlerFn,
           bool? showOutput}) =>
-      getProcess(
+      runner.run(
           args: ['init', ...?options],
           showOutput: showOutput,
           handlerFn: handlerFn,
@@ -23,7 +23,7 @@ mixin GitConfigMixin<T> on SimpleGitBase<T> implements IGitConfig<T> {
           bool skipOnError = false,
           HandlerFunction? handlerFn,
           bool? showOutput}) =>
-      getProcess(
+      runner.run(
           args: ['config', '--global', 'user.name', userName, ...?options],
           showOutput: showOutput,
           handlerFn: handlerFn,
@@ -36,7 +36,7 @@ mixin GitConfigMixin<T> on SimpleGitBase<T> implements IGitConfig<T> {
           bool skipOnError = false,
           HandlerFunction? handlerFn,
           bool? showOutput}) =>
-      getProcess(
+      runner.run(
           args: ['config', '--global', 'user.name', ...?options],
           showOutput: showOutput,
           handlerFn: handlerFn,
@@ -49,7 +49,7 @@ mixin GitConfigMixin<T> on SimpleGitBase<T> implements IGitConfig<T> {
           bool skipOnError = false,
           HandlerFunction? handlerFn,
           bool? showOutput}) =>
-      getProcess(
+      runner.run(
           args: ['config', '--global', 'user.email', userEmail, ...?options],
           showOutput: showOutput,
           handlerFn: handlerFn,
@@ -62,7 +62,7 @@ mixin GitConfigMixin<T> on SimpleGitBase<T> implements IGitConfig<T> {
           bool skipOnError = false,
           HandlerFunction? handlerFn,
           bool? showOutput}) =>
-      getProcess(
+      runner.run(
           args: ['config', '--global', 'user.email', ...?options],
           showOutput: showOutput,
           handlerFn: handlerFn,

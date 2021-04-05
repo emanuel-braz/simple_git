@@ -1,17 +1,17 @@
 import 'package:simple_git/simple_git.dart';
-import 'package:simple_git/src/models/simple_git_options.dart';
+import 'package:simple_process/simple_process.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('A group of tests', () {
-    SimpleGit? awesome;
+    SimpleGit? git;
 
     setUp(() {
-      awesome = SimpleGit(SimpleGitOptions());
+      git = SimpleGit(SimpleProcessOptions(binary: 'git'));
     });
 
     test('First Test', () {
-      expect(awesome.runtimeType, SimpleGit);
+      expect(git.runtimeType, SimpleGit);
     });
   });
 }

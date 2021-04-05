@@ -1,4 +1,4 @@
-import 'package:simple_git/src/simple_git_pkg.dart';
+import 'package:simple_process/simple_process.dart';
 
 abstract class IGitConfig<T> {
   /// Git init

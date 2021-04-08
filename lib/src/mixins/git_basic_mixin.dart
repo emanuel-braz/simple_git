@@ -63,7 +63,7 @@ mixin GitBasicMixin<T> on GitBase<T> implements IGitBasic<T> {
           HandlerFunction? handlerFn,
           bool? showOutput}) =>
       runner.run(
-          args: ['commit', message, ...?options],
+          args: ['commit', '-m', message, ...?options],
           showOutput: showOutput,
           handlerFn: handlerFn,
           skipOnError: skipOnError);

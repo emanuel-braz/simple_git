@@ -12,7 +12,7 @@ A lightweight interface for running `git` commands in any [dart](https://dart.de
 Add as dependency in pubspec.yaml
 ```yaml
   dependencies:
-    simple_git: 0.1.2
+    simple_git: 0.1.3
 ```
 
 ## System Dependencies

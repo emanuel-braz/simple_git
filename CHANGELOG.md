@@ -1,3 +1,6 @@
+## 0.1.3
+- Fix commit command
+
 ## 0.1.2
 - Expose models
 

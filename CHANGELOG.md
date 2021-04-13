@@ -1,3 +1,6 @@
+## 0.1.4
+- Added checkout, branch, merge
+
 ## 0.1.3
 - Fix commit command
 

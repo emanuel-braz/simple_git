@@ -19,8 +19,7 @@ class SimpleGitOptions extends SimpleProcessOptions {
             config: config,
             runInShell: runInShell,
             stdoutEncoding: stdoutEncoding,
-            stderrEncoding: stderrEncoding,
-            showOutput: showOutput);
+            stderrEncoding: stderrEncoding);
 
   @override
   String toString() => ''' 

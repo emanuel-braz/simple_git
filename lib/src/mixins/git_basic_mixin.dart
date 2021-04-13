@@ -116,4 +116,45 @@ mixin GitBasicMixin<T> on GitBase<T> implements IGitBasic<T> {
           showOutput: showOutput,
           handlerFn: handlerFn,
           skipOnError: skipOnError);
+
+  @override
+  T checkout(
+          {List<String>? options,
+          bool? skipOnError,
+          handlerFn,
+          bool? showOutput}) =>
+      runner.run(
+          args: ['checkout', ...?options],
+          showOutput: showOutput,
+          handlerFn: handlerFn,
+          skipOnError: skipOnError);
+
+  @override
+  T branch(
+          {List<String>? options,
+          bool? skipOnError,
+          handlerFn,
+          bool? showOutput}) =>
+      runner.run(
+          args: ['branch', ...?options],
+          showOutput: showOutput,
+          handlerFn: handlerFn,
+          skipOnError: skipOnError);
+
+  @override
+  T merge(
+      {String? branch,
+      List<String>? options = const [],
+      bool? skipOnError,
+      handlerFn,
+      bool? showOutput}) {
+    if (branch != null) {
+      options!.insert(0, branch);
+    }
+    return runner.run(
+        args: ['merge', ...options!],
+        showOutput: showOutput,
+        handlerFn: handlerFn,
+        skipOnError: skipOnError);
+  }
 }

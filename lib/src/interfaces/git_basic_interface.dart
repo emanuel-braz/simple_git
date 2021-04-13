@@ -56,6 +56,28 @@ abstract class IGitBasic<T> {
   /// Add all files
   T addAll({bool? skipOnError, HandlerFunction? handlerFn, bool? showOutput});
 
+  /// checkout
+  T checkout(
+      {List<String>? options,
+      bool? skipOnError,
+      HandlerFunction? handlerFn,
+      bool? showOutput});
+
+  /// branch
+  T branch(
+      {List<String>? options,
+      bool? skipOnError,
+      HandlerFunction? handlerFn,
+      bool? showOutput});
+
+  /// branch
+  T merge(
+      {String branch,
+      List<String>? options,
+      bool? skipOnError,
+      HandlerFunction? handlerFn,
+      bool? showOutput});
+
 /*
 /// Resets the repository, commit, file...
 /// Sets the reset mode to one of the supported types (ResetMode enum `GitResetEnum`, or a string equivalent: mixed, soft, hard, merge, keep)

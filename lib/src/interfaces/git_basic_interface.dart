@@ -78,6 +78,14 @@ abstract class IGitBasic<T> {
       HandlerFunction? handlerFn,
       bool? showOutput});
 
+  /// Update the local working copy database with changes from the default remote repo and branch, when
+  /// supplied the options argument can be a standard options object either an array of string commands as supported by the git fetch.
+  T fetch(
+      {List<String>? options,
+      bool? skipOnError,
+      HandlerFunction? handlerFn,
+      bool? showOutput});
+
 /*
 /// Resets the repository, commit, file...
 /// Sets the reset mode to one of the supported types (ResetMode enum `GitResetEnum`, or a string equivalent: mixed, soft, hard, merge, keep)
@@ -127,10 +135,6 @@ T env(String name, String value);
 
 /// Calls a simple function in the current step
 T exec(List<String> arguments, {bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
-
-/// Update the local working copy database with changes from the default remote repo and branch, when
-/// supplied the options argument can be a standard options object either an array of string commands as supported by the git fetch.
-T fetch({List<String> options, bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
 
 /// Update the local working copy database with changes from a remote repo
 T fetchFromRemote(String remote, String branch, {List<String> options, bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});

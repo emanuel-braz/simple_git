@@ -157,4 +157,16 @@ mixin GitBasicMixin<T> on GitBase<T> implements IGitBasic<T> {
         handlerFn: handlerFn,
         skipOnError: skipOnError);
   }
+
+  @override
+  T fetch(
+          {List<String>? options,
+          bool? skipOnError,
+          handlerFn,
+          bool? showOutput}) =>
+      runner.run(
+          args: ['fetch', ...?options],
+          showOutput: showOutput,
+          handlerFn: handlerFn,
+          skipOnError: skipOnError);
 }

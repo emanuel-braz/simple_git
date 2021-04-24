@@ -1,3 +1,6 @@
+## 0.1.5
+- Added fetch command
+
 ## 0.1.4
 - Added checkout, branch, merge
 

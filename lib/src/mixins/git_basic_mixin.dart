@@ -169,4 +169,40 @@ mixin GitBasicMixin<T> on GitBase<T> implements IGitBasic<T> {
           showOutput: showOutput,
           handlerFn: handlerFn,
           skipOnError: skipOnError);
+
+  @override
+  T tag(
+          {List<String>? options,
+          bool? skipOnError,
+          HandlerFunction? handlerFn,
+          bool? showOutput}) =>
+      runner.run(
+          args: ['tag', ...?options],
+          showOutput: showOutput,
+          handlerFn: handlerFn,
+          skipOnError: skipOnError);
+
+  @override
+  T addTag(String tagName,
+          {List<String>? options,
+          bool? skipOnError,
+          HandlerFunction? handlerFn,
+          bool? showOutput}) =>
+      runner.run(
+          args: ['tag', tagName, ...?options],
+          showOutput: showOutput,
+          handlerFn: handlerFn,
+          skipOnError: skipOnError);
+
+  @override
+  T addAnnotatedTag(String tagName, String tagMessage,
+          {List<String>? options,
+          bool? skipOnError,
+          HandlerFunction? handlerFn,
+          bool? showOutput}) =>
+      runner.run(
+          args: ['tag', '-a', tagName, '-m', tagMessage, ...?options],
+          showOutput: showOutput,
+          handlerFn: handlerFn,
+          skipOnError: skipOnError);
 }

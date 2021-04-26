@@ -86,16 +86,31 @@ abstract class IGitBasic<T> {
       HandlerFunction? handlerFn,
       bool? showOutput});
 
+  /// Adds a lightweight tag to the head of the current branch
+  T addTag(String tagName,
+      {List<String>? options,
+      bool? skipOnError,
+      HandlerFunction? handlerFn,
+      bool? showOutput});
+
+  /// Adds an annotated tag to the head of the current branch
+  T addAnnotatedTag(String tagName, String tagMessage,
+      {List<String>? options,
+      bool? skipOnError,
+      HandlerFunction? handlerFn,
+      bool? showOutput});
+
+  /// Runs any supported git tag commands with arguments passed as an array of strings
+  T tag(
+      {List<String>? options,
+      bool? skipOnError,
+      HandlerFunction? handlerFn,
+      bool? showOutput});
+
 /*
 /// Resets the repository, commit, file...
 /// Sets the reset mode to one of the supported types (ResetMode enum `GitResetEnum`, or a string equivalent: mixed, soft, hard, merge, keep)
 T reset({List<String> resetOptions});
-
-/// Adds an annotated tag to the head of the current branch
-T addAnnotatedTag(String tagName, String tagMessage, {bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
-
-/// Adds a lightweight tag to the head of the current branch
-T addTag(String tagName, {bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
 
 /// Generate cat-file detail, options should be an array of strings as supported arguments to the cat-file command
 T catFile(List<String> options,  {bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
@@ -159,9 +174,6 @@ T stash({List<String> options, bool skipOnError = false, HandlerFunction handler
 
 /// Retrieves the stash list, optional first argument can be an object specifying options.splitter to override the default value of ;;;;, alternatively options can be a set of arguments as supported by the git stash list command.
 T stashList(List<String> options, {bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
-
-/// Runs any supported git tag commands with arguments passed as an array of strings
-T tag(List<String> options, {bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
 
 /// List all tags, use the optional options object to set any options allows by the git tag command. Tags will be sorted by semantic version number by default, for git versions 2.7 and above, use the --sort option to set a custom sort.
 T tags({List<String> options, bool skipOnError = false, HandlerFunction handlerFn, bool showOutput});
